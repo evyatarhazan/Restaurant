@@ -1,0 +1,31 @@
+.mapTable {
+    background-color: white;
+    border-radius: 30px;
+    padding: 30px;
+    width: 250px;
+  }
+
+.map {
+    display: flex;
+    flex-direction: column;
+}
+
+.mapA {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    justify-content: space-around;
+}
+.thTable {
+    background-color: white;
+    color: #ab5e2a;
+    padding: 0px;
+}
+.tdTable {
+    text-align: end;
+}
+.trTable {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}

@@ -1,0 +1,67 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin: 10%;
+  margin-top: 50px;
+  table-layout: fixed;
+}
+.dinersTable {
+  table-layout: auto;
+}
+
+.TableHeader {
+  margin-top: 40px;
+  height: 80px;
+  margin-bottom: 40px;
+}
+
+td,
+th {
+  /* border: 0px solid #ddd; */
+  padding: 8px;
+  text-align: center;
+  font-size: 16px;
+
+}
+
+tr {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 16px;
+
+}
+
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #ab5e2a;
+  border-color: #ab5e2a;
+}
+
+.ActionButton {
+  border-radius: 30px;
+  padding: '20px';
+  background-color: white;
+}
+
+td {
+  background-color: white;
+}
+
+.Action {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+}
+
+/* .tableView {
+  display: flex;
+  flex-direction: row-reverse;
+} */
+
+#Xclose {
+  padding-right: 0%;
+}

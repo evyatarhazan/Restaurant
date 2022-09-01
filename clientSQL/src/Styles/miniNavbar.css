@@ -1,0 +1,27 @@
+.miniNavbarLeft {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .miniNavbarRight {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .miniNavbarButton {
+    margin: 25px;
+    margin-top: 15px;
+  }
+  .miniNavbarButton:hover {
+    /* font-size: 150%; */
+    color: white;
+  }
+  
+  .mini {
+    background-color: #ab5e2a;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
