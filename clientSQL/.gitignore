@@ -1,1 +1,2 @@
-./node_modules
+/clientSQL/node_modules
+/serverSQL/node_modules
