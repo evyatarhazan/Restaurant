@@ -72,7 +72,7 @@ const MenusIreservationndex = (props) => {
             if (rp.Status) {
                 const data = rp.Data;
                 const listMenus1 = data;
-                console.log("isReady1", listMenus1,);
+                console.log("isReady1", listMenus);
                 setIsReady(true);
                 setListMenus(listMenus1);
                 list(listMenus1)

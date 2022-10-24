@@ -2,15 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import BaseService from "../../../service/base.service.tsx";
 
-export const OpenModalEdit = () => {
-    let modal = document.getElementById("CustomersEdit").style.display = "block";
-}
 
-const CustomersEdit = () => {
-
-    const closeModalEdit = () => {
-        let modal = document.getElementById("CustomersEdit").style.display = "none"
-    }
+const CustomersEdit = (props) => {
 
     const [nameGroup, setNameGroup] = useState('');
     const [sizeGroup, setsizeGroup] = useState('');
@@ -30,7 +23,7 @@ const CustomersEdit = () => {
         var body = { name: nameGroup, size: (Number(sizeGroup)) };
         BaseService.create("/diners/", body).then((response) => {
             console.log(response)
-            closeModalEdit()
+            props.handleClose();
             window.location.reload()
         })
     }
@@ -38,7 +31,7 @@ const CustomersEdit = () => {
 
     return (
         <>
-            <div id="CustomersEdit" class="modal">
+            <div id="CustomersEdit" class="Rmodal">
                 <div class="modal-content">
                     <h2>הוספת לקוח</h2>
                     <table>

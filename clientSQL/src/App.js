@@ -16,19 +16,28 @@ import MenusIndexMini from './modules/menu/components/indexMini.component';
 import CustomersIndexMini from './modules/diners/components/indexMini.component';
 import TableIndexMini from './modules/table/components/indexMini.component';
 import HomeIndexMini from './modules/home/components/indexMini.component';
-import { closeModal } from './defultComponent/funPublik';
 import ReservationMini from './modules/diners/components/reservationMini.component';
+import Modal from './defultComponent/modal';
 
 class App extends React.Component {
   constructor(props, state) {
     super(props);
-
     // console.log("====", props, state);
   }
   render() {
     return (
       <BrowserRouter>
         <div id="body">
+          {/* <Modal show={true}>
+          <div class="modal-content">
+                <h2> שולחן</h2>
+                <p>{"responsServer"}</p>
+                <button class="close" onClick={() => console.log("sassasasasasasas")}>
+                    אישור
+                </button>
+
+            </div>
+          </Modal> */}
 
           <div class="img"></div>
           <div class="main">
@@ -109,7 +118,7 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-        
+
       </BrowserRouter>
     )
   }

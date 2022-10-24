@@ -1,11 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useAppState } from "../../../service/AppStateContext.tsx";
 import { list } from "./index.component";
-
 import BaseService from "../../../service/base.service.tsx";
 import { Menus } from "../../menu/models/manu";
 
@@ -44,13 +40,7 @@ const Status = (queue) => {
     }
 }
 
-
-export const OpenModal = () => {
-    let modal = document.getElementById("CustomersViewModal").style.display = "block";
-}
-
-
-export const CustomersView = (listA) => {
+export const CustomersView = (props) => {
 
     const { state } = useAppState(0);
 
@@ -83,7 +73,7 @@ export const CustomersView = (listA) => {
             let splitId = item.split(":")
             let id = splitId[0].split('"')
             for (let item of listMenus) {
-                if (item.id == Number(id[1])) {
+                if (item.id === Number(id[1])) {
                     item.amount = splitId[1]
                     listReservation.push(item)
                 }
@@ -91,7 +81,7 @@ export const CustomersView = (listA) => {
         }
         console.log("list", listReservation)
 
-        if (listReservation.length == 0) {
+        if (listReservation.length === 0) {
             return (
                 ""
             )
@@ -120,15 +110,9 @@ export const CustomersView = (listA) => {
     }
     let listCustomers = list()
 
-
-
-    const closeModal = (props) => {
-        let modal = document.getElementById("CustomersViewModal").style.display = "none"
-    }
-
     return (
         <>
-            <div id="CustomersViewModal" class="modal">
+            <div id="CustomersViewModal" class="Rmodal">
 
                 <div class="modal-content">
                     <h2>{listCustomers.id}</h2>
@@ -164,7 +148,7 @@ export const CustomersView = (listA) => {
                                 <h2 style={{margin: "-60px"}}>הזמנות</h2>
                                 <p>{listCustomers.reservations ? MapResevation(listCustomers.reservations) : ""}</p>
                     <div>
-                        <button class="close" onClick={() => closeModal()}>
+                        <button class="close" onClick={() => props.handleClose()}>
                             אישור
                         </button>
                     </div>

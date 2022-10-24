@@ -63,10 +63,9 @@ export default class BaseService {
     }
 
     public static delete(url: string, param: any): Promise<Response> {
-        // console.log(param);
-
+        
         let res = axios.delete(http + url + param.id)
-            .then(response => {
+        .then(response => {
                 const result = response.data
                 //const result = response;
                 // console.log(result)

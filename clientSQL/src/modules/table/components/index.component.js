@@ -6,6 +6,7 @@ import { useAppState } from "../../../service/AppStateContext.tsx";
 import { useEffect, useState } from "react";
 import * as toastr from "toastr";
 import TablesView, { OpenModalTable } from "./view.component";
+import Modal from "../../../defultComponent/modal";
 
 let listTableView = []
 export const list = () => {
@@ -19,25 +20,25 @@ const TablesIndex = () => {
     const [listTables, setListTables] = useState([], Array(Tables));
     const [listTable, setListTable] = useState("")
 
+    const [showDelete, setShowDelete] = useState(false);
+    const handleCloseDelete = () => setShowDelete(false);
+    const handleShowDelete = () => setShowDelete(true);
+
+    const [showView, setShowView] = useState(false);
+    const handleCloseView = () => setShowView(false);
+    const handleShowView = () => setShowView(true);
 
     const [idForDelete, setIdForDelete] = useState("")
 
-    const OpenModalDelete = () => {
-        let modal = document.getElementById("TableDelete").style.display = "block";
-    }
-    const closeModalDelete = () => {
-        let modal = document.getElementById("TableDelete").style.display = "none"
-    }
-
     const ModalDelete = (id) => {
         setIdForDelete(id)
-        OpenModalDelete()
+        handleShowDelete()
     }
 
     const ModalView = (listTables1) => {
         listTableView = listTables1
         setListTable(listTables1)
-        OpenModalTable()
+        handleShowView()
     }
 
 
@@ -61,23 +62,6 @@ const TablesIndex = () => {
             step = false
         }
     }
-
-    // const status = (id) => {
-    //     console.log(id)
-    //     BaseService.get(`/diners/`, id).then((rp) => {
-    //         if (rp.Status) {
-    //             let data = rp.Data;
-    //             console.log("data", data)
-    //             CustomersView(data)
-    //             OpenModal()
-    //         } else {
-    //             console.log("Messages: " + rp.Messages);
-    //             console.log("Exception: " + rp.Exception);
-    //         }
-    //     });
-
-    // }
-
 
     useEffect(() => {
         BaseService.getAll("/tables").then((rp) => {
@@ -114,10 +98,6 @@ const TablesIndex = () => {
                                                 <tr class="trTable">
                                                     <td >סטטוס</td>
                                                     <td >{item.status ? item.status : "פנוי"}
-                                                        {/*  <button onClick={() => status(item.status)}>
-                                                        {item.status}
-                                                     </button> */}
-                                                        {/* <CustomersView /> */}
                                                     </td>
                                                 </tr>
                                                 <tr class="trTable">
@@ -131,14 +111,16 @@ const TablesIndex = () => {
                                                             <button id="myBtn" onClick={() => ModalView(item)}>
                                                                 <img src="https://img.icons8.com/ios-glyphs/30/ab5e2a/visible--v1.png" />
                                                             </button>
-                                                            <TablesView />
+                                                            <Modal show={showView} >
+                                                                <TablesView handleClose={handleCloseView}/>
+                                                            </Modal>
 
                                                             <button id="myBtn" onClick={() => ModalDelete(item.id)}>
                                                                 <img src="https://img.icons8.com/material/30/ab5e2a/filled-trash.png" />
                                                             </button>
 
-                                                            <>
-                                                                <div id="TableDelete" class="modal">
+                                                            <Modal show={showDelete} >
+                                                                <div id="TableDelete" class="Rmodal">
 
                                                                     <div class="modal-content">
                                                                         <h2>מחיקת שולחן</h2>
@@ -155,7 +137,7 @@ const TablesIndex = () => {
                                                                                             );
                                                                                             setListTables(listTablesUpdated);
                                                                                             console.log("listTablesUpdated", listTablesUpdated);
-                                                                                            closeModalDelete()
+                                                                                            handleCloseDelete()
                                                                                         } else {
                                                                                             toastr.error(rp.Messages);
                                                                                             console.log("Messages: " + rp.Messages);
@@ -165,11 +147,11 @@ const TablesIndex = () => {
                                                                                 }
                                                                             >
                                                                                 מחק</button>
-                                                                            <button class="close" onClick={() => closeModalDelete()}>בטל</button>
+                                                                            <button class="close" onClick={() => handleCloseDelete()}>בטל</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </>
+                                                            </Modal>
                                                         </div>
                                                     </td>
                                                 </tr>

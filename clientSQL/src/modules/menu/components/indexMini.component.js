@@ -1,11 +1,17 @@
 import * as React from "react";
 import "../../../App.css";
 import { GoBack } from "../../../defultComponent/funPublik";
-import MenusEdit, { OpenModalEdit } from "./edit.component";
+import Modal from "../../../defultComponent/modal";
+import MenusEdit from "./edit.component";
+import { useState } from "react";
 
 
 
 const MenusIndexMini = (props) => {
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <>
@@ -18,8 +24,10 @@ const MenusIndexMini = (props) => {
                     <div class="miniNavbarButton" onClick={() => window.location.href = "/menu/desserts"}>קינוחים</div>
                 </div>
                 <div class="miniNavbarLeft">
-                    <div class="miniNavbarButton" onClick={() => OpenModalEdit()}>הוספת מנה</div>
-                    <MenusEdit />
+                    <div class="miniNavbarButton" onClick={handleShow}>הוספת מנה</div>
+                    <Modal show={show}>
+                        <MenusEdit handleClose={handleClose}/>
+                    </Modal>
                     <GoBack />
                 </div>
             </div>

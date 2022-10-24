@@ -3,15 +3,8 @@ import { useState } from "react";
 import BaseService from "../../../service/base.service.tsx";
 import "../../../App.css"
 
-export const OpenModalEdit = () => {
-    let modal = document.getElementById("MenusEdit").style.display = "block";
-}
 
-const MenusEdit = () => {
-
-    const closeModalEdit = () => {
-        let modal = document.getElementById("MenusEdit").style.display = "none"
-    }
+const MenusEdit = (props) => {
 
     const [nameMenu, setNameMenu] = useState('');
     const [category, setcategory] = useState('');
@@ -33,7 +26,7 @@ const MenusEdit = () => {
         var body = { name: nameMenu, category: category, price: (Number(price)) };
         BaseService.create("/menu/", body).then((response) => {
             console.log(response)
-            closeModalEdit()
+            props.handleClose();
             window.location.reload()
         })
     }
@@ -41,8 +34,7 @@ const MenusEdit = () => {
 
     return (
         <>
-            <div id="MenusEdit" class="modal">
-
+            <div id="MenusEdit" class="Rmodal">
                 <div class="modal-content">
                     <h2>הוספת מנה</h2>
                     <table >

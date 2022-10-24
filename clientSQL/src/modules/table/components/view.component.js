@@ -1,20 +1,13 @@
 import * as React from "react";
 import { list } from "./index.component";
 
-export const OpenModalTable = () => {
-    let modal = document.getElementById("TablesViewModal").style.display = "block";
-}
-
-const TablesView = () => {
+const TablesView = (props) => {
 
     let table = list()
-    const closeModal = () => {
-        let modal = document.getElementById("TablesViewModal").style.display = "none"
-    }
+
     return (
         <>
-            <div id="TablesViewModal" class="modal">
-
+            <div id="TablesViewModal" class="Rmodal">
                 <div class="modal-content">
                     <h2>{table.id}</h2>
                     <table >
@@ -24,14 +17,6 @@ const TablesView = () => {
                         </tr>
                         <tr>
                             <td>{table.status ? table.status : "פנוי"}
-                                {/* // <Link
-                                //     to={"/customers/sitting/" + table.GroupSeqNum}
-                                //     className="px-1"
-                                //     title="view">
-                                //     <Button variant="secondary">
-                                //         {table.GroupSeqNum}
-                                //     </Button>
-                                // </Link> : "פנוי"} */}
                             </td>
                             <td>סטטוס</td>
                         </tr>
@@ -41,7 +26,7 @@ const TablesView = () => {
                         </tr>
                     </table>
                     <div>
-                        <button class="close" onClick={() => closeModal()}>
+                        <button class="close" onClick={() => props.handleClose()}>
                             אישור
                         </button>
                     </div>

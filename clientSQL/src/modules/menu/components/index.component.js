@@ -4,9 +4,9 @@ import { Menus } from "../models/manu";
 import BaseService from "../../../service/base.service.tsx";
 import { useAppState } from "../../../service/AppStateContext.tsx";
 import { useEffect, useState } from "react";
-import * as toastr from "toastr";
 import { Category } from "./inum.component";
-import { OpenModalMenu, MenusView } from "./view.component";
+import { MenusView } from "./view.component";
+import Modal from "../../../defultComponent/modal";
 
 let listMenuView = []
 export const list = () => {
@@ -21,25 +21,26 @@ const MenusIndex = (props) => {
 
     const [listMenu, setListMenu] = useState("")
 
+    const [showDelete, setShowDelete] = useState(false);
+    const handleCloseDelete = () => setShowDelete(false);
+    const handleShowDelete = () => setShowDelete(true);
+
+    const [showView, setShowView] = useState(false);
+    const handleCloseView = () => setShowView(false);
+    const handleShowView = () => setShowView(true);
 
     let pathname = window.location.pathname
 
     const ModalView = (listMenus1) => {
         listMenuView = listMenus1
         setListMenu(listMenus1)
-        OpenModalMenu()
-    }
-    const OpenModalDelete = () => {
-        let modal = document.getElementById("MenusViewDelete").style.display = "block";
-    }
-    const closeModalDelete = () => {
-        let modal = document.getElementById("MenusViewDelete").style.display = "none"
+        handleShowView()
     }
 
     const ModalDelete = (listMenus1) => {
         listMenuView = listMenus1
         setListMenu(listMenus1)
-        OpenModalDelete()
+        handleShowDelete()
     }
 
     useEffect(() => {
@@ -76,41 +77,45 @@ const MenusIndex = (props) => {
                                             <button id="myBtn" onClick={() => ModalView(item)}>
                                                 <img src="https://img.icons8.com/ios-glyphs/30/ab5e2a/visible--v1.png" />
                                             </button>
-                                            <MenusView />
+                                            <Modal show={showView}>
+                                                <MenusView handleClose={handleCloseView} />
+                                            </Modal>
                                             <button id="myBtn" onClick={() => ModalDelete(item)}>
                                                 <img src="https://img.icons8.com/material/30/ab5e2a/filled-trash.png" />
                                             </button>
 
-                                            <div id="MenusViewDelete" class="modal">
+                                            <Modal show={showDelete}>
+                                                <div id="MenusDelete" class="Rmodal">
 
-                                                <div class="modal-content">
-                                                    <h2>מחיקת מנה</h2>
-                                                    <p>?{listMenuView.id} בטוח שאתה רוצה למחוק את</p>
-                                                    <div class="icons">
-                                                        <button class="close"
-                                                            onClick={() =>
-                                                                BaseService.delete(`${pathname}`, {
-                                                                    id: listMenuView.id,
-                                                                }).then((rp) => {
-                                                                    if (rp.Status) {
-                                                                        const listMenusUpdated = listMenus.filter(
-                                                                            (menus) => menus.id !== listMenuView.id
-                                                                        );
-                                                                        setListMenus(listMenusUpdated);
-                                                                        closeModalDelete()
-                                                                    } else {
-                                                                        toastr.error(rp.Messages);
-                                                                        console.log("Messages: " + rp.Messages);
-                                                                        console.log("Exception: " + rp.Exception);
-                                                                    }
-                                                                })
-                                                            }
-                                                        >
-                                                            מחק</button>
-                                                        <button class="close" onClick={() => closeModalDelete()}>בטל</button>
+                                                    <div class="modal-content">
+                                                        <h2>מחיקת מנה</h2>
+                                                        <p>?{listMenuView.id} בטוח שאתה רוצה למחוק את</p>
+                                                        <div class="icons">
+                                                            <button class="close"
+                                                                onClick={() =>
+                                                                    BaseService.delete("/menu", {
+                                                                        id: `/${listMenuView.id}`,
+                                                                    }).then((rp) => {
+                                                                        console.log("a", listMenuView.id)
+                                                                        if (rp.Status) {
+                                                                            const listMenusUpdated = listMenus.filter(
+                                                                                (menus) => menus.id !== listMenuView.id
+                                                                            );
+                                                                            setListMenus(listMenusUpdated);
+                                                                            handleCloseDelete()
+                                                                        } else {
+                                                                            console.log("Messages: " + rp.Messages);
+                                                                            console.log("Exception: " + rp.Exception, pathname);
+                                                                        }
+                                                                    })
+                                                                }
+                                                            >
+                                                                מחק</button>
+                                                            <button class="close" onClick={() => handleCloseDelete()}>בטל</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </Modal>
                                         </div>
                                     </td>
                                     <td>{item.price}</td>

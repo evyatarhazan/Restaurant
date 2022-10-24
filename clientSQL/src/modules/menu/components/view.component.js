@@ -3,20 +3,14 @@ import { Category } from "./inum.component";
 import { list } from "./index.component";
 
 
-export const OpenModalMenu = () => {
-    let modal = document.getElementById("MenusViewModal").style.display = "block";
-}
 
-export const MenusView = () => {
+export const MenusView = (props) => {
 
     let listMenus = list()
-    const closeModal = () => {
-        let modal = document.getElementById("MenusViewModal").style.display = "none"
-    }
 
     return (
         <>
-            <div id="MenusViewModal" class="modal">
+            <div id="MenusViewModal" class="Rmodal">
 
                 <div class="modal-content">
                     <h2 >{listMenus.id}</h2>
@@ -37,7 +31,7 @@ export const MenusView = () => {
                         </table>
                     </div>
                     <div>
-                        <button class="close" onClick={() => closeModal()}>
+                        <button class="close" onClick={() => props.handleClose()}>
                             אישור
                         </button>
                     </div>

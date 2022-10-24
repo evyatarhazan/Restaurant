@@ -6,7 +6,8 @@ import BaseService from "../../../service/base.service.tsx";
 import { useAppState } from "../../../service/AppStateContext.tsx";
 import { Status } from "./inum.component";
 import { Completion, Payment, Reservation } from "../../../defultComponent/funPublik";
-import { CustomersView, OpenModal } from "./view.component";
+import { CustomersView } from "./view.component";
+import Modal from "../../../defultComponent/modal";
 
 
 
@@ -23,13 +24,17 @@ const CustomersIndex = (props) => {
     const [listCustomers, setListCustomers] = useState([], Array(Customers));
     const [listCustomer, setListCustomer] = useState("")
 
+    const [showView, setShowView] = useState(false);
+    const handleCloseView = () => setShowView(false);
+    const handleShowView = () => setShowView(true);
+
     var pathname = window.location.pathname
 
     const ModalView = (listCustomers1) => {
         listCustomerView = listCustomers1
         setListCustomer(listCustomers1)
         console.log(listCustomer)
-        OpenModal()
+        handleShowView()
     }
 
 
@@ -58,7 +63,9 @@ const CustomersIndex = (props) => {
                     <button id="myBtn" onClick={() => ModalView(props.item)}>
                         <img src="https://img.icons8.com/ios-glyphs/30/ab5e2a/visible--v1.png" />
                     </button>
-                    <CustomersView />
+                    <Modal show={showView}>
+                        <CustomersView handleClose={handleCloseView} />
+                    </Modal>
                 </div>
             )
         }
@@ -68,7 +75,9 @@ const CustomersIndex = (props) => {
                     <button id="myBtn" onClick={() => ModalView(props.item)}>
                         <img src="https://img.icons8.com/ios-glyphs/30/ab5e2a/visible--v1.png" />
                     </button>
-                    <CustomersView />
+                    <Modal show={showView}>
+                        <CustomersView handleClose={handleCloseView} />
+                    </Modal>
                     <Reservation {...props} />
                     <Payment {...props} />
                 </div>
@@ -80,7 +89,9 @@ const CustomersIndex = (props) => {
                     <button id="myBtn" onClick={() => ModalView(props.item)}>
                         <img src="https://img.icons8.com/ios-glyphs/30/ab5e2a/visible--v1.png" />
                     </button>
-                    <CustomersView />
+                    <Modal show={showView}>
+                        <CustomersView handleClose={handleCloseView} />
+                    </Modal>
                     <Completion {...props} />
                 </div>
             )
@@ -93,7 +104,7 @@ const CustomersIndex = (props) => {
     return (
         <>
             <div >
-                <table style={{tableLayout: "auto"}}>
+                <table style={{ tableLayout: "auto" }}>
                     <tr>
                         <th>Action</th>
                         <th>סך לתשלום</th>

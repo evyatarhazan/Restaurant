@@ -3,22 +3,25 @@ import "../../../App.css";
 import { GoBack } from "../../../defultComponent/funPublik";
 import BaseService from "../../../service/base.service.tsx";
 import { useState } from "react";
-import CustomersEdit, { OpenModalEdit } from "./edit.component";
+import CustomersEdit from "./edit.component";
+import Modal from "../../../defultComponent/modal";
 
 
 
 const CustomersIndexMini = (props) => {
     const [responsServer, setResponsServer] = useState("")
 
-    const OpenModal = () => {
-        let modal = document.getElementById("findTableModal").style.display = "block";
-    }
-    const closeModal = (props) => {
-        let modal = document.getElementById("findTableModal").style.display = "none"
-    }
+    const [showFind, setShowFind] = useState(false);
+    const handleCloseFind = () => setShowFind(false);
+    const handleShowFind = () => setShowFind(true);
+
+    const [showEdit, setShowEdit] = useState(false);
+    const handleCloseEdit = () => setShowEdit(false);
+    const handleShowEdit = () => setShowEdit(true);
+
     const fixMessages = (data) => {
         console.log(data)
-        if (data == "No place to sit for any group") {
+        if (data === "No place to sit for any group") {
             let data = "לא נמצא שולחן פנוי"
             setResponsServer(data)
         }
@@ -29,11 +32,6 @@ const CustomersIndexMini = (props) => {
             let data1 = `נמצא שולחן מספר ${tableId} לקבוצה מספר ${dinersId}`
             setResponsServer(data1)
         }
-    }
-    
-
-    const ModalEdit = () => {
-        OpenModalEdit()
     }
 
     return (
@@ -46,35 +44,37 @@ const CustomersIndexMini = (props) => {
                     <div class="miniNavbarButton" onClick={() => window.location.href = "/diners/awaitingBill"}>ממתינים לתשלום</div>
                 </div>
                 <div class="miniNavbarLeft" >
-                    <div class="miniNavbarButton" onClick={() => ModalEdit()}>הוספת לקוח</div>
-                    <CustomersEdit />
+                    <div class="miniNavbarButton" onClick={handleShowEdit}>הוספת לקוח</div>
+                    <Modal show={showEdit}>
+                        <CustomersEdit handleClose={handleCloseEdit}/>
+                    </Modal>
                     <div class="miniNavbarButton" onClick={() =>
                         BaseService.get('/diners', '/sitbyperiority').then((rp) => {
                             if (rp.Status) {
                                 console.log("Messages: " + rp.Data);
                                 fixMessages(rp.Data)
-                                OpenModal()
+                                handleShowFind()
                             } else {
                                 fixMessages(rp.Messages)
-                                let props = { item: rp.Messages, activ: "find" }
                                 console.log("Messages: " + rp.Messages);
                                 console.log("Exception: " + rp.Exception);
-                                OpenModal()
+                                handleShowFind()
                             }
                         })
                     }>מציאת שולחן</div>
 
-                    <div id="findTableModal" class="modal">
-
-                        <div class="modal-content">
-                            <h2>חיפוש שולחן</h2>
-                            <p>{responsServer}</p>
-                            <button class="close" onClick={() => closeModal()}>
-                            אישור
-                        </button>
-
+                    <Modal show={showFind}>
+                        <div id="findTableModal" class="Rmodal">
+                            <div class="modal-content">
+                                <h2>חיפוש שולחן</h2>
+                                <p>{responsServer}</p>
+                                <button class="close" onClick={handleCloseFind}>
+                                    אישור
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </Modal>
+
                     <GoBack />
                 </div>
             </div>

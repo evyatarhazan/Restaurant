@@ -2,15 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import BaseService from "../../../service/base.service.tsx";
 
-export const OpenModalEdit = () => {
-    let modal = document.getElementById("TablesEdit").style.display = "block";
-}
 
-const TablesEdit = () => {
-
-    const closeModalEdit = () => {
-        let modal = document.getElementById("TablesEdit").style.display = "none"
-    }
+const TablesEdit = (props) => {
 
     const [nameTable, setNameTable] = useState('');
     const [capacity, setCapacity] = useState('');
@@ -30,14 +23,14 @@ const TablesEdit = () => {
         var body = { name: nameTable, capacity: (Number(capacity)) };
         BaseService.create("/tables/", body).then((response) => {
             console.log(response)
-            closeModalEdit()
-            window.location.reload()
+            props.handleClose();
+            window.location.reload();
         })
     }
 
     return (
         <>
-            <div id="TablesEdit" class="modal">
+            <div id="TablesEdit" class="Rmodal">
 
                 <div class="modal-content">
                     <div>
