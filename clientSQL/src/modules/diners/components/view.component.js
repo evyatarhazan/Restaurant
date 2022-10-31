@@ -61,6 +61,12 @@ export const CustomersView = (props) => {
         });
     }, [state]);
 
+    const lastUpdated = (props) => {
+        let lastUpdated = props.split('').splice(11, 8).join('')
+        console.log("props", props, lastUpdated)
+        return lastUpdated
+    }
+
     const MapResevation = (reservation) => {
 
         console.log(reservation)
@@ -127,7 +133,7 @@ export const CustomersView = (props) => {
                                 <td>גודל קבוצה</td>
                             </tr>
                             <tr >
-                                <td>{listCustomers.lastUpdated}</td>
+                                <td>{lastUpdated(listCustomers.lastUpdated)}</td>
                                 <td>שעת הגעה</td>
                             </tr>
                             <tr >

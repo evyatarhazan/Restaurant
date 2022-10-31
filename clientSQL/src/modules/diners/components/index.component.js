@@ -56,6 +56,16 @@ const CustomersIndex = (props) => {
         });
     }, [state, pathname]);
 
+
+    const lastUpdated = (props) => {
+        let lastUpdated = props.split('').splice(11, 8).join('')
+        console.log("props", props, lastUpdated)
+        return lastUpdated
+
+
+    }
+
+
     const IfButton = (props) => {
         if (props.item.queue === "tobesited") {
             return (
@@ -128,7 +138,7 @@ const CustomersIndex = (props) => {
                                     <td>{Status(item.queue)}</td>
                                     <td>{item.nameTable ? item.nameTable : "מחכים לשולחן"}
                                     </td>
-                                    <td> {item.lastUpdated} </td>
+                                    <td> {lastUpdated(item.lastUpdated)} </td>
                                     <td>{item.size}</td>
                                     <td>{item.name}</td>
                                     <td>{item.id}</td>

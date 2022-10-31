@@ -1,0 +1,5 @@
+/clientSQL/node_modules
+/serverSQL/node_modules
+
+resteronProjectSQL/serverMySQL/node_modules/
+resteronProjectSQL/clientSQL/node_modules
